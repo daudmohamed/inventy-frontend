@@ -1,6 +1,6 @@
 const API_URL = process.env.API_URL || 'http://localhost:8080'
 
-export const fetchItems = async (type: 'inventory' | 'shopping') => {
+export const fetchItems = async (type?: 'inventory' | 'shopping') => {
   let url = '/item'
   switch (type) {
     case 'inventory':
