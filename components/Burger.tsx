@@ -46,6 +46,7 @@ const Burger = (props: BurgerProps) => {
       >
         {props.menuItems.map((m) => (
           <MenuItem
+            key={m.text}
             onClick={() => {
               m.action()
               setOpen(false)

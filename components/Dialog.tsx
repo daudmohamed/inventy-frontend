@@ -9,8 +9,6 @@ const Dialog = ({
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
-  const dialogRef = React.useRef(null)
-
   const [item, setItem] = React.useState({
     name: '',
     current: 0,
@@ -41,13 +39,11 @@ const Dialog = ({
       aria-labelledby="modal-title"
       aria-describedby="modal-desc"
       open={open}
-      ref={dialogRef}
       onClose={() => setOpen(false)}
       sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
     >
       <Sheet
         variant="soft"
-        anchorEl={dialogRef.current}
         sx={{
           maxWidth: 500,
           borderRadius: 'md',
@@ -95,7 +91,7 @@ const Dialog = ({
               type="number"
               placeholder="Enter current amount"
               value={item.current}
-              onChange={(e) => setItem({ ...item, current: e.target.value })}
+              onChange={(e) => setItem({ ...item, current: Number.parseInt(e.target.value) })}
             />
           </FormControl>
           <FormControl>
@@ -106,7 +102,7 @@ const Dialog = ({
               type="number"
               placeholder="Enter target amount"
               value={item.target}
-              onChange={(e) => setItem({ ...item, target: e.target.value })}
+              onChange={(e) => setItem({ ...item, target: Number.parseInt(e.target.value) })}
             />
           </FormControl>
           <Button className="mt-1" type="submit">

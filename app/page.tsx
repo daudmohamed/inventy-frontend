@@ -38,12 +38,8 @@ export default function Home() {
         </Header>
         <Tabs size="lg">
           <TabList variant="soft" color="primary">
-            <Tab id={0} aria-controls="0">
-              Inventory
-            </Tab>
-            <Tab id={1} aria-controls="1">
-              Shopping List
-            </Tab>
+            <Tab>Inventory</Tab>
+            <Tab>Shopping List</Tab>
           </TabList>
           <TabPanel value={0} sx={{ p: 2 }}>
             <List type="inventory" />

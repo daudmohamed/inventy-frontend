@@ -22,7 +22,7 @@ const List = (props: ListProps) => {
   const [openModal, setOpenModal] = React.useState<boolean>(false)
 
   useEffect(() => {
-    let url
+    let url = 'http://localhost:8080/item'
     switch (props.type) {
       case 'inventory':
         url = 'http://localhost:8080/item'
@@ -37,7 +37,7 @@ const List = (props: ListProps) => {
       .then((data) => {
         setItems(data)
       })
-  }, [openModal])
+  }, [openModal, props.type])
 
   return (
     <Sheet className="flex w-full flex-col">
