@@ -5,6 +5,7 @@ import Typography from '@mui/joy/Typography'
 import Dialog from '@/components/Dialog'
 import Burger from '@/components/Burger'
 import { Delete, Edit } from '@mui/icons-material'
+import { fetchItems } from '@/api/apis'
 
 type Item = {
   id: number
@@ -22,21 +23,9 @@ const List = (props: ListProps) => {
   const [openModal, setOpenModal] = React.useState<boolean>(false)
 
   useEffect(() => {
-    let url = 'http://localhost:8080/item'
-    switch (props.type) {
-      case 'inventory':
-        url = 'http://localhost:8080/item'
-        break
-      case 'shopping':
-        url = 'http://localhost:8080/shopping'
-        break
-    }
-
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        setItems(data)
-      })
+    fetchItems(props.type).then((data) => {
+      setItems(data)
+    })
   }, [openModal, props.type])
 
   return (

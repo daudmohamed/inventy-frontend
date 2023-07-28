@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, FormControl, FormLabel, Input, Modal, ModalClose, Sheet } from '@mui/joy'
 import Typography from '@mui/joy/Typography'
+import { addItem } from '@/api/apis'
 
 const Dialog = ({
   open,
@@ -9,7 +10,7 @@ const Dialog = ({
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
-  const [item, setItem] = React.useState({
+  const [item, setItem] = React.useState<ItemDTO>({
     name: '',
     current: 0,
     target: 0,
@@ -17,14 +18,7 @@ const Dialog = ({
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    fetch('http://localhost:8080/item', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(item),
-    })
-      .then((res) => res.json())
+    addItem(item)
       .then((data) => {
         console.log('Success:', data)
         setOpen(false)
