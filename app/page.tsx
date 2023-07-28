@@ -1,95 +1,58 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+'use client'
+import React from 'react'
+import { Button, CssVarsProvider, Tab, TabList, TabPanel, Tabs, useColorScheme } from '@mui/joy'
+import Header from '@/components/header'
+import List from '@/components/List'
+
+function ModeToggle() {
+  const { mode, setMode } = useColorScheme()
+  const [mounted, setMounted] = React.useState(false)
+
+  // necessary for server-side rendering
+  // because mode is undefined on the server
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+  if (!mounted) {
+    return null
+  }
+
+  return (
+    <Button
+      variant="outlined"
+      onClick={() => {
+        setMode(mode === 'light' ? 'dark' : 'light')
+      }}
+    >
+      {mode === 'light' ? 'Turn dark' : 'Turn light'}
+    </Button>
+  )
+}
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+    <main>
+      <CssVarsProvider>
+        <Header>
+          <ModeToggle />
+        </Header>
+        <Tabs size="lg">
+          <TabList variant="soft" color="primary">
+            <Tab id={0} aria-controls="0">
+              Inventory
+            </Tab>
+            <Tab id={1} aria-controls="1">
+              Shopping List
+            </Tab>
+          </TabList>
+          <TabPanel value={0} sx={{ p: 2 }}>
+            <List type="inventory" />
+          </TabPanel>
+          <TabPanel value={1} sx={{ p: 2 }}>
+            <List type="shopping" />
+          </TabPanel>
+        </Tabs>
+      </CssVarsProvider>
     </main>
   )
 }
