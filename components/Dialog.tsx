@@ -1,7 +1,17 @@
 import React from 'react'
-import { Button, FormControl, FormLabel, Input, Modal, ModalClose, Sheet } from '@mui/joy'
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  IconButton,
+  Input,
+  Modal,
+  ModalClose,
+  Sheet,
+} from '@mui/joy'
 import Typography from '@mui/joy/Typography'
 import { addItem } from '@/api/apis'
+import { UploadFile } from '@mui/icons-material'
 
 const Dialog = ({
   open,
@@ -36,17 +46,8 @@ const Dialog = ({
       onClose={() => setOpen(false)}
       sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
     >
-      <Sheet
-        variant="soft"
-        sx={{
-          maxWidth: 500,
-          borderRadius: 'md',
-          p: 3,
-          boxShadow: 'lg',
-        }}
-      >
+      <Sheet className="rounded shadow-2xl p-8">
         <ModalClose
-          variant="soft"
           sx={{
             top: 'calc(-1/4 * var(--IconButton-size))',
             right: 'calc(-1/4 * var(--IconButton-size))',
@@ -66,42 +67,54 @@ const Dialog = ({
           Add new item
         </Typography>
         <form onSubmit={onSubmit}>
-          <FormControl>
-            <FormLabel>Name</FormLabel>
-            <Input
-              // html input attribute
-              name="name"
-              type="text"
-              placeholder="Enter name of item"
-              value={item.name}
-              onChange={(e) => setItem({ ...item, name: e.target.value })}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel>current</FormLabel>
-            <Input
-              // html input attribute
-              name="current"
-              type="number"
-              placeholder="Enter current amount"
-              value={item.current}
-              onChange={(e) => setItem({ ...item, current: Number.parseInt(e.target.value) })}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel>target</FormLabel>
-            <Input
-              // html input attribute
-              name="target"
-              type="number"
-              placeholder="Enter target amount"
-              value={item.target}
-              onChange={(e) => setItem({ ...item, target: Number.parseInt(e.target.value) })}
-            />
-          </FormControl>
-          <Button className="mt-1" type="submit">
-            submit
-          </Button>
+          <Sheet className="flex gap-2">
+            <Sheet variant="soft" className="rounded w-32 flex justify-center items-center">
+              <FormControl>
+                <FormLabel>Upload</FormLabel>
+                <IconButton variant="soft" className="flex justify-center">
+                  <UploadFile />
+                </IconButton>
+              </FormControl>
+            </Sheet>
+            <Sheet className="flex flex-col gap-1">
+              <FormControl>
+                <FormLabel>Name</FormLabel>
+                <Input
+                  // html input attribute
+                  name="name"
+                  type="text"
+                  placeholder="Enter name of item"
+                  value={item.name}
+                  onChange={(e) => setItem({ ...item, name: e.target.value })}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>current</FormLabel>
+                <Input
+                  // html input attribute
+                  name="current"
+                  type="number"
+                  placeholder="Enter current amount"
+                  value={item.current}
+                  onChange={(e) => setItem({ ...item, current: Number.parseInt(e.target.value) })}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>target</FormLabel>
+                <Input
+                  // html input attribute
+                  name="target"
+                  type="number"
+                  placeholder="Enter target amount"
+                  value={item.target}
+                  onChange={(e) => setItem({ ...item, target: Number.parseInt(e.target.value) })}
+                />
+              </FormControl>
+              <Button color="success" className="mt-1" type="submit">
+                submit
+              </Button>
+            </Sheet>
+          </Sheet>
         </form>
       </Sheet>
     </Modal>
