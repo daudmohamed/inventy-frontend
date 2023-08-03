@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'
+const API_URL = '/api/inventy'
 
 export const fetchItems = async (type?: 'inventory' | 'shopping') => {
   let url = '/item'
@@ -15,7 +15,6 @@ export const fetchItems = async (type?: 'inventory' | 'shopping') => {
 }
 
 export const addItem = async (item: ItemDTO) => {
-  let url = '/item'
   const response = fetch(`${API_URL}/item`, {
     method: 'POST',
     headers: {

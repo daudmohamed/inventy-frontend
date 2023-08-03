@@ -5,7 +5,7 @@ import Typography from '@mui/joy/Typography'
 import Dialog from '@/components/Dialog'
 import Burger from '@/components/Burger'
 import { Delete, Edit } from '@mui/icons-material'
-import { fetchItems } from '@/api/apis'
+import { fetchItems } from '@/app/api/apis'
 
 type Item = {
   id: number
