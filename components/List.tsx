@@ -31,7 +31,7 @@ const List = (props: ListProps) => {
   return (
     <Sheet className="flex w-full flex-col">
       <Sheet className="flex justify-between items-center p-2">
-        <Typography level="h6" className="flex-1" id="tableTitle" component="div">
+        <Typography level="h4" className="flex-1" id="tableTitle" component="div">
           {props.type === 'inventory' ? 'Inventory' : 'Shopping List'}
         </Typography>
         <Dialog open={openModal} setOpen={setOpenModal} />

@@ -1,36 +1,39 @@
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 import Gets from './gets'
 import Posts from './posts'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export async function GET(request: NextRequest, { params }: { params: { slug: string } }) {
-  let route = params.slug
+type Parameters = { params: { slug: string } }
+
+export async function GET(request: NextRequest, context: Parameters) {
+  let route = context.params.slug
   const handler = route && Gets.hasOwnProperty(route) && Gets[route]
   try {
     if (handler) {
-      return await handler(request)
+      return await handler(request, context)
     } else {
       return new Response(null, { status: 404 })
     }
   } catch (error) {
     console.log(error)
-    return new Response(null, { status: error.status || 500 })
+    // @ts-ignore
+    return new Response(error, { status: 500 })
   }
 }
 
-export async function POST(request: NextRequest, { params }: { params: { slug: string } }) {
-  let route = params.slug
-
-  console.log('slug', route)
+export async function POST(request: NextRequest, context: Parameters) {
+  let route = context.params.slug
   const handler = route && Posts.hasOwnProperty(route) && Posts[route]
   try {
     if (handler) {
-      return await handler(request)
+      return await handler(request, context)
     } else {
       return new Response(null, { status: 404 })
     }
   } catch (error) {
     console.log(error)
-    return new Response(null, { status: error.status || 500 })
+    // @ts-ignore
+    return new Response(error, { status: 500 })
   }
 }

@@ -8,13 +8,15 @@ type HeaderProps = {
 
 const Header = (props: HeaderProps) => {
   const { user } = props
+  const pic = user && user.picture ? user.picture : undefined
+  const alt = user && user.name ? user.name : undefined
   let avatar
   if (user) {
     avatar = (
       <>
         <Tooltip title="Log out">
           <a href="/api/auth/logout">
-            <Avatar src={user?.picture} alt={user?.name} color="primary" variant="soft" />
+            <Avatar src={pic} alt={alt} color="primary" variant="soft" />
           </a>
         </Tooltip>
       </>
