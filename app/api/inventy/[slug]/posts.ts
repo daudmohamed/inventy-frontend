@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getAccessToken, withApiAuthRequired } from '@auth0/nextjs-auth0'
 import { ApiHandler } from '@/types/types'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'
+const API_URL = process.env.API_URL
 
 const handleAddItem = withApiAuthRequired(async function items(req: NextRequest) {
   // If your access token is expired and you have a refresh token
