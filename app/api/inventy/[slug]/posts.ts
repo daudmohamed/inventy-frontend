@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAccessToken, withApiAuthRequired } from '@auth0/nextjs-auth0'
-import { AppRouteHandlerFn } from '@auth0/nextjs-auth0/src/helpers/with-api-auth-required'
+import { ApiHandler } from '@/types/types'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'
 
@@ -22,7 +22,7 @@ const handleAddItem = withApiAuthRequired(async function items(req: NextRequest)
 })
 
 const Posts: {
-  [key: string]: AppRouteHandlerFn
+  [key: string]: ApiHandler
 } = {
   item: handleAddItem,
 }

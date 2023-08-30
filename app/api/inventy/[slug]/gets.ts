@@ -1,7 +1,6 @@
 import { getAccessToken, withApiAuthRequired } from '@auth0/nextjs-auth0'
-import { NextRequest, NextResponse } from 'next/server'
-import { NextApiHandler, NextApiRequest } from 'next'
-import { AppRouteHandlerFn } from '@auth0/nextjs-auth0/src/helpers/with-api-auth-required'
+import { NextResponse } from 'next/server'
+import { ApiHandler } from '@/types/types'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'
 
@@ -36,7 +35,7 @@ const handleShoppingItems = withApiAuthRequired(async function shoppingItems() {
 })
 
 const Gets: {
-  [key: string]: AppRouteHandlerFn
+  [key: string]: ApiHandler
 } = {
   item: handleInventoryItems,
   shopping: handleShoppingItems,
