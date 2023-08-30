@@ -1,8 +1,21 @@
 'use client'
 import React from 'react'
-import { Button, CssVarsProvider, Tab, TabList, TabPanel, Tabs, useColorScheme } from '@mui/joy'
+import {
+  Avatar,
+  Button,
+  CircularProgress,
+  CssVarsProvider,
+  Sheet,
+  Tab,
+  TabList,
+  TabPanel,
+  Tabs,
+  Tooltip,
+  useColorScheme,
+} from '@mui/joy'
 import Header from '@/components/header'
 import List from '@/components/List'
+import { useUser } from '@auth0/nextjs-auth0/client'
 
 function ModeToggle() {
   const { mode, setMode } = useColorScheme()
@@ -30,12 +43,33 @@ function ModeToggle() {
 }
 
 export default function Home() {
-  return (
-    <main>
-      <CssVarsProvider>
-        <Header>
-          <ModeToggle />
-        </Header>
+  const { user, error, isLoading } = useUser()
+  let page
+  if (isLoading) {
+    page = (
+      <Sheet className="flex justify-center items-center h-full">
+        <CircularProgress />
+      </Sheet>
+    )
+  } else if (error) {
+    page = (
+      <Sheet className="flex justify-center items-center">
+        <p className="flex-1">Error</p>
+      </Sheet>
+    )
+  } else if (!user) {
+    page = (
+      <Sheet className="flex justify-center items-center">
+        <a href="/api/auth/login">
+          <Button variant="soft" color="primary">
+            Log in
+          </Button>
+        </a>
+      </Sheet>
+    )
+  } else {
+    page = (
+      <>
         <Tabs size="lg">
           <TabList variant="soft" color="primary">
             <Tab>Inventory</Tab>
@@ -48,6 +82,16 @@ export default function Home() {
             <List type="shopping" />
           </TabPanel>
         </Tabs>
+      </>
+    )
+  }
+  return (
+    <main>
+      <CssVarsProvider>
+        <Header user={user}>
+          <ModeToggle />
+        </Header>
+        {page}
       </CssVarsProvider>
     </main>
   )

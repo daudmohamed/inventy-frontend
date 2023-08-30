@@ -10,7 +10,7 @@ import {
   Sheet,
 } from '@mui/joy'
 import Typography from '@mui/joy/Typography'
-import { addItem } from '@/api/apis'
+import { addItem } from '@/app/api/apis'
 import { UploadFile } from '@mui/icons-material'
 
 const Dialog = ({
